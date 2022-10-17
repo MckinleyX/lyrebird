@@ -160,23 +160,23 @@ class MainWindow(Gtk.Window):
         if switch.get_active():
             # Load module-null-sink
             null_sink = subprocess.check_call(
-                'pacmd load-module module-null-sink sink_name=Lyrebird-Output'.split(' ')
+                'pactl load-module module-null-sink sink_name=Lyrebird-Output'.split(' ')
             )
             remap_sink = subprocess.check_call(
-                'pacmd load-module module-remap-source source_name=Lyrebird-Input master=Lyrebird-Output.monitor'\
+                'pactl load-module module-remap-source source_name=Lyrebird-Input master=Lyrebird-Output.monitor'\
                     .split(' ')
             )
 
             print(f'Loaded null output sink ({null_sink}), and remap sink ({remap_sink})')
 
-            subprocess.check_call(
-                'pacmd update-sink-proplist Lyrebird-Output device.description="Lyrebird Output"'\
-                    .split(' ')
-            )
-            subprocess.check_call(
-                'pacmd update-source-proplist Lyrebird-Input device.description="Lyrebird Virtual Input"'\
-                    .split(' ')
-            )
+            #subprocess.check_call(
+            #    'pacmd update-sink-proplist Lyrebird-Output device.description="Lyrebird Output"'\
+            #        .split(' ')
+            #)
+            #subprocess.check_call(
+            #    'pacmd update-source-proplist Lyrebird-Input device.description="Lyrebird Virtual Input"'\
+            #        .split(' ')
+            #)
 
 
             state.sink = null_sink
